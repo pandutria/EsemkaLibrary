@@ -4,21 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/yellow"
     android:orientation="vertical"
-    android:gravity="center"
-    android:layout_height="match_parent"
-    tools:context=".view.ui.activity.LoginActivity">
-
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:src="@drawable/icon"/>
+    tools:context=".view.ui.activity.SignUpActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Email"
+        android:text="Sign Up"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="20dp"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-medium"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
@@ -26,7 +31,7 @@
         android:fontFamily="sans-serif-medium"/>
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginLeft="20dp"
@@ -56,25 +61,52 @@
         android:inputType="textPassword"
         android:background="@drawable/input"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogin"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm Password"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"/>
+
+    <EditText
+        android:id="@+id/etConfirm"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:paddingLeft="15dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:background="@drawable/button"
-        android:text="Login"
-        android:textAllCaps="false"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="20sp"/>
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="15dp"
+        android:inputType="textPassword"
+        android:background="@drawable/input"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"/>
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/input"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="25dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:background="@drawable/button"
@@ -82,7 +114,5 @@
         android:textAllCaps="false"
         android:fontFamily="sans-serif-medium"
         android:textSize="20sp"/>
-
-
 
 </LinearLayout>
