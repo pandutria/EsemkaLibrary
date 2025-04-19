@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
                     var body = JSONObject(result).getString("body")
 //                    helper.log(code.toString())
 
-                    if (code == 200) {
+                    if (code in 200 until  300) {
                         var res = JSONObject(body)
                         mySharedPrefrence.saveToken(activity, res.getString("token"))
                         activity.startActivity(Intent(activity, MainActivity::class.java))

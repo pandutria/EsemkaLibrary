@@ -1,5 +1,7 @@
 package com.example.esemkalibrary.network
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import com.example.esemkalibrary.util.helper
 import org.json.JSONObject
@@ -44,5 +46,23 @@ class HttpHandler {
         }
 
         return response.toString()
+    }
+
+    fun requestImage(
+        endpoint: String,
+        token: String? = null
+    ): Bitmap? {
+        return try {
+            var url = URL(helper.url + endpoint)
+            var conn = url.openConnection() as HttpURLConnection
+            conn.requestMethod = "GET"
+            conn.setRequestProperty("Content-Type", "application/json")
+            conn.setRequestProperty("Authorization", "Bearer $token")
+            var input = conn.inputStream
+            return BitmapFactory.decodeStream(input)
+        } catch (e: Exception) {
+            helper.log(e.message!!)
+            null
+        }
     }
 }

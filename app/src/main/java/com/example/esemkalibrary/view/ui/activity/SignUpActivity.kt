@@ -79,7 +79,7 @@ class SignUpActivity : AppCompatActivity() {
                     var body = JSONObject(result).getString("body")
 //                    helper.log(code.toString())
 
-                    if (code == 200) {
+                    if (code in 200 until 300) {
                         activity.startActivity(Intent(activity, LoginActivity::class.java))
                         activity.finish()
 //                        helper.log(res.getString("token"))
