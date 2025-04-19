@@ -1,14 +1,17 @@
 package com.example.esemkalibrary.view.ui.fragment
 
+import android.graphics.Bitmap
 import android.os.AsyncTask
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.example.esemkalibrary.R
 import com.example.esemkalibrary.databinding.FragmentDetailBookBinding
 import com.example.esemkalibrary.network.HttpHandler
+import com.example.esemkalibrary.util.helper
 import com.example.esemkalibrary.util.mySharedPrefrence
 import org.json.JSONObject
 
@@ -50,8 +53,31 @@ class DetailBookFragment : Fragment() {
                     tvPublish.text = book.getString("publisher")
                     tvAvailable.text = book.getInt("available").toString()
                     tvDesc.text = book.getString("description")
-
+                    showImage(book.getString("id"), imgImage, fragment).execute()
                 }
+            }
+        }
+    }
+
+    class showImage(private var id: String, private var imageView: ImageView, private var fragment: DetailBookFragment): AsyncTask<String, Void, Bitmap>() {
+        override fun doInBackground(vararg p0: String?): Bitmap? {
+            return try {
+                HttpHandler().requestImage(
+                    "Book/$id/Photo",
+                    token = mySharedPrefrence.getToken(fragment.requireContext())
+                )
+            } catch (e: Exception) {
+                helper.log(e.message!!)
+                null
+            }
+        }
+
+        override fun onPostExecute(result: Bitmap?) {
+            super.onPostExecute(result)
+            if (result != null) {
+                imageView.setImageBitmap(result)
+            } else {
+                imageView.setImageResource(R.drawable.db2)
             }
         }
     }
