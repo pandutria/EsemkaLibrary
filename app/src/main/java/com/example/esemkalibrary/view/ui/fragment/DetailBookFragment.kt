@@ -16,6 +16,7 @@ import com.example.esemkalibrary.network.HttpHandler
 import com.example.esemkalibrary.util.cartManager
 import com.example.esemkalibrary.util.helper
 import com.example.esemkalibrary.util.mySharedPrefrence
+import com.example.esemkalibrary.view.ui.activity.MainActivity
 import org.json.JSONObject
 
 class DetailBookFragment : Fragment() {
@@ -45,6 +46,11 @@ class DetailBookFragment : Fragment() {
                         tvAuthors.text.toString()
                     )
                 ))
+
+                var context = context
+                if (context is MainActivity) {
+                    context.binding.btnMyCart.performClick()
+                }
             }
         }
 

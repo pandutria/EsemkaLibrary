@@ -1,14 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/yellow"
     android:layout_height="match_parent"
     tools:context=".view.ui.fragment.CartFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_above="@+id/layoutDate"
+        android:id="@+id/rv"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/layoutDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date Borrow:"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="22sp"
+            android:fontFamily="sans-serif-medium"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+
+            <EditText
+                android:id="@+id/etDateFrom"
+                android:layout_width="170dp"
+                android:layout_height="45dp"
+                android:inputType="date"
+                android:paddingLeft="15dp"
+                android:background="@drawable/input"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="25sp"
+                android:fontFamily="sans-serif-medium"/>
+
+            <EditText
+                android:id="@+id/etDateTo"
+                android:layout_width="170dp"
+                android:layout_height="45dp"
+                android:inputType="date"
+                android:paddingLeft="15dp"
+                android:background="@drawable/input"
+                android:layout_marginRight="20dp"/>
+
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/button"
+            android:elevation="7dp"
+            android:text="Booking Borrow"
+            android:textAllCaps="false"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
