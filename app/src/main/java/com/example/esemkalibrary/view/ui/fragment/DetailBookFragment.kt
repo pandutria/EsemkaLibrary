@@ -10,7 +10,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.example.esemkalibrary.R
 import com.example.esemkalibrary.databinding.FragmentDetailBookBinding
+import com.example.esemkalibrary.model.Book
+import com.example.esemkalibrary.model.Cart
 import com.example.esemkalibrary.network.HttpHandler
+import com.example.esemkalibrary.util.cartManager
 import com.example.esemkalibrary.util.helper
 import com.example.esemkalibrary.util.mySharedPrefrence
 import org.json.JSONObject
@@ -28,6 +31,22 @@ class DetailBookFragment : Fragment() {
 
         book_id = arguments?.getString("book_id").toString()
         showData(this).execute()
+
+        binding.apply {
+            btnAdd.setOnClickListener {
+                cartManager.cartList.add(Cart(
+                    tvIsbn.text.toString(),
+                    tvPublish.text.toString(),
+                    tvAvailable.text.toString(),
+                    tvDesc.text.toString(),
+                    Book(
+                        book_id,
+                        tvName.text.toString(),
+                        tvAuthors.text.toString()
+                    )
+                ))
+            }
+        }
 
         return binding.root
     }
