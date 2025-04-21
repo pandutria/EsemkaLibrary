@@ -39,7 +39,7 @@ class CartFragment : Fragment() {
         binding = FragmentCartBinding.inflate(layoutInflater, container, false)
 
         binding.apply {
-            rv.adapter = CartAdapter( cartManager.cartList)
+            rv.adapter = CartAdapter(cartManager.cartList)
             rv.layoutManager = LinearLayoutManager(context)
 
             val date = Date()

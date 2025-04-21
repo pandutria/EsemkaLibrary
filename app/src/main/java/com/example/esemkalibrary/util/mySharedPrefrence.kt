@@ -14,16 +14,16 @@ object mySharedPrefrence {
         }
     }
 
+    fun getToken(context: Context): String? {
+        var shared = context.getSharedPreferences(sharedKey, Context.MODE_PRIVATE)
+        return shared.getString(token, null)
+    }
+
     fun deleteToken(context: Context) {
         var shared = context.getSharedPreferences(sharedKey, Context.MODE_PRIVATE)
         with(shared.edit()) {
             remove(token)
             apply()
         }
-    }
-
-    fun getToken(context: Context): String? {
-        var shared = context.getSharedPreferences(sharedKey, Context.MODE_PRIVATE)
-        return shared.getString(token, null)
     }
 }
