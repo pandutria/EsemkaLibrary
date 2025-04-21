@@ -7,15 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.ThemedSpinnerAdapter.Helper
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.esemkalibrary.R
 import com.example.esemkalibrary.databinding.FragmentProfileBinding
+import com.example.esemkalibrary.model.Book
+import com.example.esemkalibrary.model.Borrowing
+import com.example.esemkalibrary.model.Cart
 import com.example.esemkalibrary.network.HttpHandler
 import com.example.esemkalibrary.util.helper
 import com.example.esemkalibrary.util.mySharedPrefrence
+import com.example.esemkalibrary.view.adapter.BorrowingAdapter
+import org.json.JSONArray
 import org.json.JSONObject
 
 class ProfileFragment : Fragment() {
-   lateinit var binding: FragmentProfileBinding
+    lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,11 +31,60 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
 
         meData(this).execute()
+        showData(this).execute()
 
         return binding.root
-
     }
-    class meData(private var fragment: ProfileFragment): AsyncTask<String, Void, String>() {
+
+    class showData(private var fragment: ProfileFragment) : AsyncTask<Void, Void, Void>() {
+        var borrowList: MutableList<Borrowing> = arrayListOf()
+        override fun doInBackground(vararg p0: Void?): Void? {
+
+            try {
+                var jsonUrl = HttpHandler().request(
+                    "Borrowing",
+                    token = mySharedPrefrence.getToken(fragment.requireContext())
+                )
+
+                var code = JSONObject(jsonUrl).getInt("code")
+                var body = JSONObject(jsonUrl).getString("body")
+
+                if (code in 200 until 300) {
+                    var jsonArray = JSONArray(body)
+
+                    for (i in 0 until jsonArray.length()) {
+                        var res = jsonArray.getJSONObject(i)
+
+                        borrowList.add(Borrowing(
+                            res.getString("id"),
+                            res.getString("start"),
+                            res.getString("end"),
+                            res.getString("returnedAt"),
+                            res.getInt("bookCount"),
+                            res.getString("status"),
+                        ))
+
+                    }
+
+                }
+
+            } catch (e: Exception) {
+                helper.log(e.message!!)
+            }
+            return null
+
+        }
+
+        override fun onPostExecute(result: Void?) {
+            super.onPostExecute(result)
+            fragment.binding.apply {
+                rv.adapter = BorrowingAdapter(borrowList)
+                rv.layoutManager = LinearLayoutManager(fragment.context)
+            }
+        }
+    }
+
+    class meData(private var fragment: ProfileFragment) : AsyncTask<String, Void, String>() {
         override fun doInBackground(vararg p0: String?): String {
             return HttpHandler().request(
                 "User/Me",
