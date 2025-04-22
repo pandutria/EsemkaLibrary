@@ -1,5 +1,6 @@
 package com.example.esemkalibrary.view.ui.fragment
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,6 +18,8 @@ import com.example.esemkalibrary.network.HttpHandler
 import com.example.esemkalibrary.util.helper
 import com.example.esemkalibrary.util.mySharedPrefrence
 import com.example.esemkalibrary.view.adapter.BorrowingAdapter
+import com.example.esemkalibrary.view.ui.activity.LoginActivity
+import com.example.esemkalibrary.view.ui.activity.MainActivity
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -33,7 +36,22 @@ class ProfileFragment : Fragment() {
         meData(this).execute()
         showData(this).execute()
 
+        binding.btn.setOnClickListener {
+            mySharedPrefrence.deleteToken(requireContext())
+
+            var context = context
+            if (context is MainActivity) {
+                context.startActivity(Intent(context, LoginActivity::class.java))
+            }
+        }
+
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        meData(this).execute()
+        showData(this).execute()
     }
 
     class showData(private var fragment: ProfileFragment) : AsyncTask<Void, Void, Void>() {

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 
 object helper {
     var url = "http://10.0.2.2:5000/Api/"
+    var email = ""
 
     fun toast(context: Context, string: String) {
         Toast.makeText(context, string, Toast.LENGTH_LONG).show()

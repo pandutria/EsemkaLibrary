@@ -71,6 +71,7 @@ class LoginActivity : AppCompatActivity() {
 
                     if (code in 200 until  300) {
                         var res = JSONObject(body)
+                        helper.email = activity.binding.etEmail.text.toString()
                         mySharedPrefrence.saveToken(activity, res.getString("token"))
                         activity.startActivity(Intent(activity, MainActivity::class.java))
                         activity.finish()

@@ -1,60 +1,114 @@
 package com.example.esemkalibrary.view.ui.fragment
 
+import android.os.AsyncTask
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.esemkalibrary.R
+import com.example.esemkalibrary.databinding.FragmentForumBinding
+import com.example.esemkalibrary.model.Forum
+import com.example.esemkalibrary.network.HttpHandler
+import com.example.esemkalibrary.util.helper
+import com.example.esemkalibrary.util.mySharedPrefrence
+import com.example.esemkalibrary.view.adapter.ForumAdapter
+import com.example.esemkalibrary.view.ui.activity.MainActivity
+import org.json.JSONArray
+import org.json.JSONObject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ForumFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ForumFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var binding: FragmentForumBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forum, container, false)
+        binding = FragmentForumBinding.inflate(layoutInflater, container, false)
+
+        showData(this).execute()
+
+        binding.btn.setOnClickListener {
+            var context = context
+            if (context is MainActivity) {
+                context.showFragment(AddThreadFragment())
+            }
+        }
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ForumFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ForumFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onResume() {
+        super.onResume()
+        showData(this).execute()
     }
+
+    inner class deleteData (private var fragment: ForumFragment, private var id: String): AsyncTask<String, Void, String>() {
+        override fun doInBackground(vararg p0: String?): String {
+            return HttpHandler().request(
+                "Forum/$id",
+                "DELETE",
+                mySharedPrefrence.getToken(fragment.requireContext())
+            )
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+            var code = JSONObject(result).getInt("code")
+            var body = JSONObject(result).getString("body")
+
+            if (code in 200 until 300) {
+               showData(fragment).execute()
+            }
+        }
+    }
+
+    class showData(private var fragment: ForumFragment): AsyncTask<Void,Void, Void>() {
+        var forumList: MutableList<Forum> = arrayListOf()
+        override fun doInBackground(vararg p0: Void?): Void? {
+            try {
+                var jsonUrl = HttpHandler().request(
+                    "Forum",
+                    token = mySharedPrefrence.getToken(fragment.requireContext())
+                )
+
+                var code = JSONObject(jsonUrl).getInt("code")
+                var body = JSONObject(jsonUrl).getString("body")
+
+                if (code in 200 until 300) {
+                    var jsonArray = JSONArray(body)
+
+                    for (i in 0 until jsonArray.length()) {
+                        var forum = jsonArray.getJSONObject(i)
+
+                        var creator = forum.getJSONObject("createdBy")
+
+                        forumList.add(Forum(
+                            forum.getString("id"),
+                            forum.getString("subject"),
+                            forum.getString("createdAt"),
+                            forum.getString("lastestReply"),
+                            creator.getString("name"),
+                            creator.getString("email"),
+                        ))
+                    }
+                }
+
+            } catch (e: Exception) {
+                helper.log(e.message!!)
+            }
+            return null
+        }
+
+        override fun onPostExecute(result: Void?) {
+            super.onPostExecute(result)
+            fragment.binding.apply {
+                rv.adapter = ForumAdapter(fragment, forumList)
+                rv.layoutManager = LinearLayoutManager(fragment.context)
+            }
+        }
+    }
+
 }

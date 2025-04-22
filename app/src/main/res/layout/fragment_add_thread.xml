@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:background="@color/yellow"
     android:orientation="vertical"
-    android:gravity="center"
     android:layout_height="match_parent"
-    tools:context=".view.ui.activity.LoginActivity">
-
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:src="@drawable/icon"/>
+    tools:context=".view.ui.fragment.AddThreadFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Email"
+        android:text="Subject"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
@@ -26,7 +18,7 @@
         android:fontFamily="sans-serif-medium"/>
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/etSubject"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginLeft="20dp"
@@ -38,50 +30,37 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Password"
+        android:text="Body"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif-medium"/>
-
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:paddingLeft="15dp"
-        android:inputType="textPassword"
-        android:background="@drawable/input"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:background="@drawable/button"
-        android:text="Login"
-        android:textAllCaps="false"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="20sp"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"/>
+
+    <EditText
+        android:id="@+id/etBody"
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:gravity="top"
+        android:paddingTop="10dp"
+        android:text="cdcs"
+        android:background="@drawable/input"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:background="@drawable/button"
-        android:text="Sign Up"
+        android:text="Add Thread"
         android:textAllCaps="false"
         android:fontFamily="sans-serif-medium"
-        android:textSize="20sp"/>
-
-
+        android:textSize="18sp"/>
 
 </LinearLayout>

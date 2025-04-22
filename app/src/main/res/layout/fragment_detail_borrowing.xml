@@ -16,6 +16,37 @@
             android:orientation="vertical">
 
 
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="List Books"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="25sp"
+                android:fontFamily="sans-serif-medium"/>
+
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="List Books"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-medium"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rv"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="10dp"
+                tools:listitem="@layout/item_detail_borrowing"/>
+
 
         </LinearLayout>
 
