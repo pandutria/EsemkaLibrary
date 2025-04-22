@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yellow"
+    tools:context=".view.ui.fragment.DetailThreadFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/layoutInput"
+        android:id="@+id/rv"/>
+
+    <LinearLayout
+        android:id="@+id/layoutInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/input">
+
+        <EditText
+            android:id="@+id/etBody"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="top"
+            android:hint="Reply..."
+            android:paddingTop="10dp"
+            android:background="@drawable/input"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/button"
+            android:layout_marginBottom="15dp"
+            android:text="Add Reply"
+            android:textAllCaps="false"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="18sp"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
