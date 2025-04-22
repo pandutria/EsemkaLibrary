@@ -1,8 +1,10 @@
 package com.example.esemkalibrary.view.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.esemkalibrary.databinding.ItemDetailThreadBinding
 import com.example.esemkalibrary.model.Forum
@@ -36,12 +38,31 @@ class DetailThreadAdapter(private var fragment: DetailThreadFragment, private va
             }
 
             btn.setOnClickListener {
-                fragment.deleteData(fragment, thread.id!!).execute()
+                var builder = AlertDialog.Builder(fragment.requireContext())
+                builder.setTitle("Confirmation")
+                builder.setMessage("Are you sure want to delete this data?")
+
+                builder.setPositiveButton("Yes") {dialog, _ ->
+                    fragment.deleteData(fragment, thread.id!!).execute()
+                    dialog.dismiss()
+                }
+
+                builder.setNegativeButton("No") {dialog, _ ->
+                    dialog.dismiss()
+                }
+
+                var dialog = builder.create()
+                dialog.show()
+
             }
         }
     }
 
     override fun getItemCount(): Int {
         return threadList.size
+    }
+
+    fun showDialog(context: Context) {
+
     }
 }

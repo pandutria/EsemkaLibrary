@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.esemkalibrary.databinding.ItemForumBinding
 import com.example.esemkalibrary.model.Forum
@@ -48,7 +49,22 @@ class ForumAdapter(private var fragment: ForumFragment, private var forumList: L
             }
 
             btn.setOnClickListener {
-                fragment.deleteData(fragment, forum.id!!).execute()
+                var builder = AlertDialog.Builder(fragment.requireContext())
+                builder.setTitle("Confirmation")
+                builder.setMessage("Are you sure want to delete this data?")
+
+                builder.setPositiveButton("Yes") {dialog, _ ->
+                    fragment.deleteData(fragment, forum.id!!).execute()
+                    dialog.dismiss()
+                }
+
+                builder.setNegativeButton("No") {dialog, _ ->
+                    dialog.dismiss()
+                }
+
+                var dialog = builder.create()
+                dialog.show()
+
             }
 
             holder.itemView.setOnClickListener {

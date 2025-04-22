@@ -1,11 +1,13 @@
 package com.example.esemkalibrary.view.ui.fragment
 
+import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.esemkalibrary.R
 import com.example.esemkalibrary.databinding.FragmentDetailThreadBinding
