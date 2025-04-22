@@ -6,6 +6,7 @@ data class Forum(
     var createdAt: String? = null,
     var lastestReply: String? = null,
     var name: String? = null,
-    var email: String? = null
+    var email: String? = null,
+    var message: String? = null,
 
 )

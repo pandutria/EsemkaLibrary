@@ -13,6 +13,7 @@ import com.example.esemkalibrary.util.helper
 import com.example.esemkalibrary.util.mySharedPrefrence
 import com.example.esemkalibrary.view.ui.activity.MainActivity
 import com.example.esemkalibrary.view.ui.fragment.AddThreadFragment
+import com.example.esemkalibrary.view.ui.fragment.DetailThreadFragment
 import com.example.esemkalibrary.view.ui.fragment.ForumFragment
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -50,17 +51,17 @@ class ForumAdapter(private var fragment: ForumFragment, private var forumList: L
                 fragment.deleteData(fragment, forum.id!!).execute()
             }
 
-//            holder.itemView.setOnClickListener {
-//                var context = holder.itemView.context
-//                if (context is MainActivity) {
-//                    var fragment = AddThreadFragment()
-//                    var bundle = Bundle()
-//                    bundle.putString("id", forum.id)
-//                    fragment.arguments = bundle
-//
-//                    context.showFragment(fragment)
-//                }
-//            }
+            holder.itemView.setOnClickListener {
+                var context = holder.itemView.context
+                if (context is MainActivity) {
+                    var fragment = DetailThreadFragment()
+                    var bundle = Bundle()
+                    bundle.putString("id", forum.id)
+                    fragment.arguments = bundle
+
+                    context.showFragment(fragment)
+                }
+            }
 
         }
     }

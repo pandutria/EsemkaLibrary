@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/layoutInput"
+        tools:listitem="@layout/item_detail_thread"
         android:id="@+id/rv"/>
 
     <LinearLayout
@@ -21,12 +22,14 @@
         android:background="@drawable/input">
 
         <EditText
-            android:id="@+id/etBody"
+            android:id="@+id/etMessage"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp"
             android:layout_marginTop="15dp"
             android:gravity="top"
             android:hint="Reply..."
